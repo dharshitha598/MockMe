@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Past Interviews</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    header {
+      background: #1e293b;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 32px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .section-title-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    h2.section-title {
+      font-size: 24px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      position: relative;
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .company {
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: #3b82f6;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #2563eb;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+
+    .badge.success {
+      background-color: #22c55e;
+      color: white;
+    }
+
+    .badge.rejected {
+      background-color: #ef4444;
+      color: white;
+    }
+
+    .badge.pending {
+      background-color: #facc15;
+      color: black;
+    }
+
+    .notes {
+      font-style: italic;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    hr {
+      margin: 40px 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+
+    .logo {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+    .feedback-modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .feedback-modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      border-radius: 8px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .search-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center; /* Vertically align items */
+      gap: 5px;
+    }
+
+    .search-input {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      width: 200px;
+    }
+
+    #searchResults {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      display: none;
+    }
+    .button-container {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Past Interviews</h1>
+    <p>Reflection on your interview journey</p>
+  </header>
+
+  <div class="container">
+    <div class="section-title-container">
+      <h2 class="section-title">Past Interviews</h2>
+      <div class="button-container">
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search..." id="searchInput">
+          <a href="interviewsPage.html"><button class="btn">View Upcoming Interviews</button></a>
+        </div>
+      </div>
+    </div>
+    <div id="searchResults"></div>
+    <div class="card-container" id="pastCards">
+      <div class="card" data-feedback='{"feedback":"Great communication and technical skills.","struggles":"None noted.","improvement":"Continue to build on your strengths."}'>
+        <h3>Software Intern</h3>
+        <p class="company">Innova Systems</p>
+        <p>Date: 2025-03-12</p>
+        <p>Status: <span class="badge success">Selected</span></p>
+        <p class="notes">Great experience, panel was friendly.</p>
+        <button class="btn view-feedback">View Feedback</button>
+      </div>
+      <div class="card" data-feedback='{"feedback":"Technical skills need improvement.","struggles":"Struggled with system design questions.","improvement":"Focus on practicing more system design problems."}'>
+        <h3>Full Stack Developer</h3>
+        <p class="company">PixelBridge</p>
+        <p>Date: 2025-03-25</p>
+        <p>Status: <span class="badge rejected">Rejected</span></p>
+        <p class="notes">Missed a few technical questions.</p>
+        <button class="btn view-feedback">View Feedback</button>
+      </div>
+      <div class="card" data-feedback='{"feedback":"Very strong in QA methodologies.","struggles":"None noted.","improvement":"Keep up the good work and stay updated on industry trends."}'>
+        <h3>QA Tester Intern</h3>
+        <p class="company">AppMinds Pvt Ltd</p>
+        <p>Date: 2025-03-08</p>
+        <p>Status: <span class="badge success">Selected</span></p>
+        <p class="notes">Good technical round and fast response.</p>
+        <button class="btn view-feedback">View Feedback</button>
+      </div>
+      <div class="card" data-feedback='{"feedback":"CI/CD concepts need strengthening.","struggles":"Struggled with understanding Docker and Kubernetes.","improvement":"Take online courses and practice with containerization tools."}'>
+        <h3>DevOps Engineer</h3>
+        <p class="company">CloudWave Technologies</p>
+        <p>Date: 2025-02-28</p>
+        <p>Status: <span class="badge rejected">Rejected</span></p>
+        <p class="notes">Struggled with CI/CD concepts.</p>
+        <button class="btn view-feedback">View Feedback</button>
+      </div>
+    </div>
+  </div>
+  <div id="feedbackModal" class="feedback-modal">
+    <div class="feedback-modal-content">
+      <span class="close">&times;</span>
+      <div id="feedbackContent"></div>
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const pastCards = document.getElementById('pastCards').querySelectorAll('.card');
+
+    searchInput.addEventListener('input', function() {
+      const searchTerm = searchInput.value.toLowerCase();
+
+      const filteredCards = Array.from(pastCards).filter(card => {
+        const cardText = card.textContent.toLowerCase();
+        return cardText.includes(searchTerm);
+      });
+
+      if (searchTerm) {
+        searchResults.style.display = 'block';
+        searchResults.innerHTML = filteredCards.map(card => card.outerHTML).join('');
+      } else {
+        searchResults.style.display = 'none';
+        searchResults.innerHTML = '';
+      }
+    });
+
+    document.querySelectorAll('.view-feedback').forEach(button => {
+      document.querySelectorAll('.view-feedback').forEach(button => {
+        button.addEventListener('click', function() {
+          const card = this.closest('.card');
+          const feedbackData = JSON.parse(card.dataset.feedback);
+          const feedbackContent = document.getElementById('feedbackContent');
+          feedbackContent.innerHTML = `
+            <p><strong>Feedback:</strong> ${feedbackData.feedback}</p>
+            <p><strong>Struggles:</strong> ${feedbackData.struggles}</p>
+            <p><strong>Improvement:</strong> ${feedbackData.improvement}</p>
+          `;
+          document.getElementById('feedbackModal').style.display = 'block';
+        });
+      });
+    });
+
+    document.querySelector('.close').addEventListener('click', function() {
+      document.getElementById('feedbackModal').style.display = 'none';
+    });
+
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('feedbackModal')) {
+        document.getElementById('feedbackModal').style.display = 'none';
+      }
+    };
+  </script>
+</body>
+</html>
