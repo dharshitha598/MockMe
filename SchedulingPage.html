@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MockMe Scheduling Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .header {
+            background: #5c6bc0;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .scheduling-form label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .scheduling-form input,
+        .scheduling-form button {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            background: #5c6bc0;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #3949ab;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>MockMe Scheduling</h1>
+    </header>
+    <main class="container">
+        <form class="scheduling-form" id="scheduleForm">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <span id="date-error" class="error-message"></span>
+
+            <label for="time">Time (8:00 AM - 8:00 PM):</label>
+            <input type="time" id="time" name="time" required>
+            <span id="time-error" class="error-message"></span>
+
+            <button type="submit" class="submit-btn">Schedule</button>
+        </form>
+    </main>
+
+    <script>
+        const dateInput = document.getElementById("date");
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.min = today;
+
+        const timeInput = document.getElementById("time");
+        const scheduleForm = document.getElementById('scheduleForm');
+
+        timeInput.addEventListener('input', function() {
+            const selectedTime = timeInput.value;
+            if (selectedTime) {
+                const [hours, minutes] = selectedTime.split(':').map(Number);
+                if (hours < 8 || hours > 20) {
+                    timeInput.value = "";
+                    alert("Please select a time between 8:00 AM and 8:00 PM.");
+                }
+            }
+        });
+
+        scheduleForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from actually submitting
+            //check if all fields are valid.
+            if(dateInput.value && timeInput.value){
+                alert("Successfully Applied!");
+                scheduleForm.reset(); // clear the form.
+            }
+
+        });
+    </script>
+</body>
+</html>
