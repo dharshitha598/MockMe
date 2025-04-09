@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mock Me Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3f4f6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-left img {
+      height: 50px;
+    }
+
+    .header-left h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .user-info img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .user-info span {
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .search-bar {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: #e0f2fe; /* Light blue background */
+      border-radius: 1rem;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+
+    .card span {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      letter-spacing: 0.3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-left">
+        <img src="MM2/mockme.png" alt="Mock Me Logo" />
+        <h1>Mock Me</h1>
+      </div>
+      <div class="user-info">
+        <img src="https://via.placeholder.com/40" alt="User" id="userImage" />
+        <span id="userName">John Doe</span>
+      </div>
+    </div>
+
+    <input
+      type="text"
+      class="search-bar"
+      placeholder="Search languages or roles..."
+      oninput="filterTopics(this.value)"
+    />
+
+    <div class="grid" id="topicsGrid"></div>
+  </div>
+
+  <script>
+    const topics = [
+      "C", "C++", "Java", "Python", "JavaScript", "Frontend Developer", "Backend Developer",
+      "Full Stack Developer", "Data Scientist", "DevOps Engineer", "Android Developer",
+      "iOS Developer", "UIUX Designer", "Machine Learning", "Cybersecurity", "Cloud Engineer",
+      "AI Engineer", "Database Admin", "Blockchain", "Game Developer"
+    ];
+
+    const grid = document.getElementById("topicsGrid");
+
+    const formatIconName = (name) => {
+      return name.toLowerCase().replace(/\+\+/g, "pp").replace(/\s+/g, "");
+    };
+
+    const renderTopics = (filter = "") => {
+      grid.innerHTML = "";
+      topics
+        .filter(topic => topic.toLowerCase().includes(filter.toLowerCase()))
+        .forEach(topic => {
+          const iconName = formatIconName(topic);
+          const card = document.createElement("div");
+          card.className = "card";
+          card.onclick = () => window.location.href = `schedule.html?topic=${encodeURIComponent(topic)}`;
+          card.innerHTML = `
+            <img src="icons/${iconName}.png" alt="${topic}" />
+            <span>${topic}</span>
+          `;
+          grid.appendChild(card);
+        });
+    };
+
+    const filterTopics = (query) => renderTopics(query);
+
+    // Load user info from localStorage if present
+    const user = JSON.parse(localStorage.getItem("mockme_user") || '{}');
+    if (user.name && user.picture) {
+      document.getElementById("userName").innerText = user.name;
+      document.getElementById("userImage").src = user.picture;
+    }
+
+    renderTopics();
+  </script>
+</body>
+</html>
