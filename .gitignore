@@ -1,0 +1,8 @@
+*
+!.gitignore
+!*.html
+push -u origin master.png
+push -u origin master.png >> .gitignore.png
+!*.png
+!icons/
+!icons/.AIEngineer.png
