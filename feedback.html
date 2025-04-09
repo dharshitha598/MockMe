@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock Me - Feedback</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fade-in 0.6s ease-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center px-4">
+
+  <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 max-w-md w-full transition-all duration-300">
+    <h1 class="text-3xl font-extrabold text-center text-blue-700 mb-6">
+      Share Your Feedback
+    </h1>
+
+    <form id="feedbackForm" class="space-y-5 animate-fade-in">
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Your Feedback</label>
+        <textarea id="feedback" required placeholder="Write your feedback here..." class="w-full h-36 p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"></textarea>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-medium hover:bg-blue-700 active:scale-95 transition-all">
+        Submit Feedback
+      </button>
+    </form>
+
+    <div id="thankYouMessage" class="hidden text-green-600 text-center font-semibold text-lg animate-fade-in mt-4">
+      🎉 Thank you for your feedback! Redirecting...
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("feedbackForm");
+    const thankYouMessage = document.getElementById("thankYouMessage");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const feedback = document.getElementById("feedback").value;
+
+      console.log("Feedback submitted:", { feedback });
+
+      form.classList.add("hidden");
+      thankYouMessage.classList.remove("hidden");
+
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
